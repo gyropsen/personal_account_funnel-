@@ -80,20 +80,15 @@ async def send_messages(app: Client, message: ObjectiveMessage):
             message.text_3: message.timeout_3,
         }.items():
             write_user = await user_manager.select_user_by_id(message.user_id)
-            print(write_user[0].status)
             if write_user[0].status != Status.finished:
                 while True:
                     if datetime.now() - write_user[0].updated_at >= message_timeout:
-                        print(message_for_write)
                         await write_message(app, write_user[0], message_for_write)
                         await user_manager.update_updated_at(write_user[0].id, datetime.now())
                         break
                 # иначе пропускать задачу
         # После исполнения всех задач присвоить пользователю статус finished
         await user_manager.update_status_user(user[0].id, Status.finished)
-    else:
-        # иначе ничего
-        print("finish!")
 
     # Удалить задачу
     await messages_manager.delete_objective_message(message.id)

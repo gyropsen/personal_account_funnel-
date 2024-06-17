@@ -13,7 +13,6 @@ async def check_alive(client, message):
     """
     Обработчик слов-триггеров от юзербота
     """
-    print(message.text, "1")
     # Если в сообщениях есть слова триггеры, то присвоить статус finish
     messages = [
         await check_trigger(mess.text)
@@ -23,7 +22,6 @@ async def check_alive(client, message):
     user = await get_user(str(message.from_user.id))
     if user:
         if True in messages:
-            print("status.finished")
             await user_manager.update_status_user(user.id, Status.finished)
 
 
@@ -31,8 +29,6 @@ async def message_private_handler(client, message):
     """
     Обработчик слов-триггеров от пользователя
     """
-    print(message.text, "2")
-
     # Получить от пользователя сообщение и создать задачу.
     # Проверить статус User | None
     user = await get_user(str(message.from_user.id))

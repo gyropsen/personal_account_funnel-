@@ -112,7 +112,6 @@ class ObjectiveMessagesDBManager:
 
     @staticmethod
     async def delete_objective_message(_id: int):
-        print("delete_objective_message")
         async with async_session_factory() as session:
             statement = delete(ObjectiveMessage).filter_by(id=_id)
             await session.execute(statement)
@@ -124,48 +123,3 @@ class ObjectiveMessagesDBManager:
             user = await session.get(ObjectiveMessage, _id)
             user.stop = stop
             await session.commit()
-
-
-async def main():
-    # pass
-    # manager = Database()
-    # await manager.drop_tables()
-    # await manager.create_new_tables()
-    # manager_messages = ObjectiveMessagesDBManager()
-    user_manager = UserDBManager()
-    # await user_manager.insert_user({"telegram_id": "01234", "status": Status.alive})
-    users = await user_manager.select_users()
-    #
-    for user in users:
-        print(user.status, user.telegram_id)
-    #     await user_manager.update_status_user(user.id, Status.finished)
-    #
-    # new_users = await user_manager.select_users()
-    # for new_user in new_users:
-    #     print(new_user.status, new_user.telegram_id)
-
-    # messages = await manager_messages.select_objective_messages()
-    # print(messages)
-    # for mess in messages:
-    #     print(mess.stop)
-    # print(users)
-    # user = await user_manager.select_user_by_telegram_id("01234")
-    # print(user[0].id)
-    # await manager_messages.insert_objective_message(
-    #     {"time_start": datetime.datetime.now(), "text": "text1", "timeout": datetime.timedelta(seconds=5),
-    #      "user": user[0]})
-    # messages = await manager_messages.select_objective_messages()
-    # print(messages[0].user_id)
-    # await manager_messages.delete_objective_message(messages[0].id)
-    # messages = await manager_messages.select_objective_messages()
-    # print(messages)
-
-    # await manager_messages.insert_objective_message(
-    #     {"time_start": datetime.datetime.now(), "text": "text1", "timeout": datetime.timedelta(seconds=5)})
-    # print(await manager_messages.select_objective_messages())
-    # for message in await manager_messages.select_objective_messages():
-    #     print(message.text, message.timeout, type(message.timeout))
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
