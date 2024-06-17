@@ -1,0 +1,65 @@
+[tool.poetry]
+name = "personal-account-funnel "
+version = "0.1.0"
+description = ""
+authors = ["egor <sharapov.egor00@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+environs = "^11.0.0"
+sqlalchemy = "^2.0.30"
+asyncpg = "^0.29.0"
+pytest-asyncio = "^0.23.7"
+pyrogram = "^2.0.106"
+
+
+[tool.poetry.group.lint.dependencies]
+black = "^23.10.1"
+isort = "^5.12.0"
+mypy = "^1.6.1"
+flake8 = "^6.1.0"
+
+[tool.black]
+# максимальная длина строки
+line-length = 119
+# файлы, которые не нужно форматировать
+exclude = '''
+(
+  /(
+      \.eggs         # исключить несколько общих каталогов в
+    | \.git          # корне проекта
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | dist
+  )/
+  | foo.py           # также отдельно исключить файл с именем foo.py в
+                     # корне проекта
+)
+'''
+
+[tool.isort]
+# максимальная длина строки
+line_length = 119
+
+[tool.mypy]
+disallow_untyped_defs = true
+no_implicit_optional = true
+warn_return_any = true
+exclude = 'venv'
+
+
+
+
+
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
